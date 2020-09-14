@@ -19,12 +19,16 @@ public class ManagerApp {
         System.out.println("Selecione um módulo");
         System.out.println("1 - Cadastros");
         System.out.println("2 - Relatórios");
+        System.out.println("");
+        System.out.println("3 - Finalizar");
         Integer module = scanModule.nextInt();
 
         if (module.equals(1))
             register();
         else if (module.equals(2))
             reports();
+        else
+            systemFinisher();
     }
 
     private static void register() {
@@ -33,6 +37,9 @@ public class ManagerApp {
         System.out.println("1 - Pratos");
         System.out.println("2 - Bebidas");
         System.out.println("3 - Vinhos");
+        System.out.println("");
+        System.out.println("4 - Voltar ao menu principal");
+
         Integer tipoCadastro = scanMenu.nextInt();
 
         if (tipoCadastro.equals(1))
@@ -41,6 +48,8 @@ public class ManagerApp {
             drinkRegister();
         else if (tipoCadastro.equals(3))
             wineRegister();
+        else
+            initMenu();
     }
 
     private static void plateRegister() {
@@ -55,6 +64,10 @@ public class ManagerApp {
         plate.setPrice(platePrice);
 
         plate.savePlate(plate);
+
+        System.out.println("\n\n");
+        System.out.println("----------");
+        initMenu();
     }
 
     private static void drinkRegister() {
@@ -69,6 +82,10 @@ public class ManagerApp {
         drink.setPrice(drinkPrice);
 
         drink.saveDrink(drink);
+
+        System.out.println("\n\n");
+        System.out.println("----------");
+        initMenu();
     }
 
     private static void wineRegister() {
@@ -83,6 +100,10 @@ public class ManagerApp {
         wine.setPrice(winePrice);
 
         wine.saveWine(wine);
+
+        System.out.println("\n\n");
+        System.out.println("----------");
+        initMenu();
     }
 
     private static void reports() {
@@ -104,8 +125,18 @@ public class ManagerApp {
                     System.out.println("Preco total do pedido: " + requestTotalPrice);
                 }
             }
+
+            System.out.println("\n\n");
+            System.out.println("----------");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        initMenu();
+    }
+
+    private static void systemFinisher(){
+        System.out.println("Sistema finalizado com sucesso!");
     }
 }

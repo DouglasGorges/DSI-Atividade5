@@ -15,6 +15,7 @@ public class Plate extends MenuItem {
             PrintWriter output = new PrintWriter(new FileWriter("pratos.csv", true));
             output.print(prepareToSave(plate));
             output.close();
+            System.out.println("Prato salvo com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }

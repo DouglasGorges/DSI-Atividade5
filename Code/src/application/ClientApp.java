@@ -28,18 +28,22 @@ public class ClientApp {
         System.out.println("2 - Bebidas");
         System.out.println("3 - Vinhos");
         System.out.println("");
-        System.out.println("4 - Finalizar pedido");
-        Integer tipoProduto = scanner.nextInt();
+        System.out.println("4 - Reiniciar pedido");
+        System.out.println("5 - Finalizar pedido");
+        Integer productType = scanner.nextInt();
 
-        if (tipoProduto.equals(1)) {
+        if (productType.equals(1)) {
             System.out.println(HEAD);
             addPlate();
-        } else if (tipoProduto.equals(2)) {
+        } else if (productType.equals(2)) {
             System.out.println(HEAD);
             addDrink();
-        } else if (tipoProduto.equals(3)) {
+        } else if (productType.equals(3)) {
             System.out.println(HEAD);
             addWine();
+        } else if (productType.equals(4)) {
+            request = new Request();
+            initMenu();
         } else
             closeRequest();
     }
@@ -65,6 +69,9 @@ public class ClientApp {
             plate.setPrice(Double.parseDouble(platesMap.get(plateCode - 1)[1]));
 
             request.getMenuList().add(plate);
+
+            System.out.println("Prato adicionado ao pedido com sucesso!\n");
+
             initMenu();
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,6 +101,9 @@ public class ClientApp {
             drink.setPrice(Double.parseDouble(drinksMap.get(drinkCode - 1)[0]));
 
             request.getMenuList().add(drink);
+
+            System.out.println("Bebida adicionada ao pedido com sucesso!\n");
+
             initMenu();
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,6 +132,9 @@ public class ClientApp {
             wine.setPrice(Double.parseDouble(winesMap.get(wineCode - 1)[0]));
 
             request.getMenuList().add(wine);
+
+            System.out.println("Vinho adicionado ao pedido com sucesso!\n");
+
             initMenu();
         } catch (Exception e) {
             e.printStackTrace();

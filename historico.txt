@@ -1,24 +1,3 @@
 Almôndega caseira	9.7
-Água mineral sem gás	3.0
-Tannat Uruguaio	33.0
-Observações: nop;
-
-Arroz de forno	7.5
-Bife de alcatra	13.5
-Água mineral sem gás	3.0
-Água-de-coco	5.0
-Tannat Uruguaio	33.0
-Merlot Francês	45.5
-Observações: duas;
-
-Cabernet Sauvignon	25.5
-Fanta Laranja	6.5
-Bife de alcatra	13.5
-Observações: jj;
-
-Sprite	4.7
-Observações: nao;
-
-Almôndega caseira	9.7
 Observações: nao;
 

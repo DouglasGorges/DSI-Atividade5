@@ -13,6 +13,7 @@ public class Wine extends MenuItem {
         try {
             PrintWriter output = new PrintWriter(new FileWriter("vinhos-tabulados.txt", true));
             output.close();
+            System.out.println("Vinho salvo com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }

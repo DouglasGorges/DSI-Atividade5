@@ -9,6 +9,3 @@ PRECO	BEBIDA
 4,50	Limonada
 5,30	Pepsi
 4,70	Sprite
-13.5	BebidaDG
-12.5	TEsteDD
-12,5	TTEE

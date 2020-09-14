@@ -14,6 +14,7 @@ public class Drink extends MenuItem {
             PrintWriter output = new PrintWriter(new FileWriter("bebidas-tabuladas.txt", true));
             output.print(prepareToSave(drink));
             output.close();
+            System.out.println("Bebida salva com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }
