@@ -1,7 +1,5 @@
 package resources.menu;
 
-import resources.MenuItem;
-
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
@@ -28,15 +26,5 @@ public class Wine extends MenuItem {
         wineStr.append("\t");
         wineStr.append(wine.getName());
         return wineStr.toString();
-    }
-
-    @Override
-    public void setName(String name) {
-        super.setName(name);
-    }
-
-    @Override
-    public void setPrice(Double price) {
-        super.setPrice(price);
     }
 }

@@ -1,7 +1,5 @@
 package resources.menu;
 
-import resources.MenuItem;
-
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
@@ -29,15 +27,5 @@ public class Plate extends MenuItem {
         plateStr.append(";");
         plateStr.append(platePrice);
         return plateStr.toString();
-    }
-
-    @Override
-    public void setName(String name) {
-        super.setName(name);
-    }
-
-    @Override
-    public void setPrice(Double price) {
-        super.setPrice(price);
     }
 }

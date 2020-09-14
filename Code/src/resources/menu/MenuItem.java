@@ -1,4 +1,4 @@
-package resources;
+package resources.menu;
 
 public abstract class MenuItem {
     String name;
