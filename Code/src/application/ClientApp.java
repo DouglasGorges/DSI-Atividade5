@@ -7,6 +7,8 @@ import resources.menu.Wine;
 import resources.requests.Request;
 
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -38,7 +40,7 @@ public class ClientApp {
         } else if (tipoProduto.equals(3)) {
             System.out.println(HEAD);
             addWine();
-        } else{
+        } else {
             if (request.getMenuList().size() != 0) {
                 System.out.println("Alguma observação final?");
                 Scanner scanGuideline = new Scanner(System.in);
@@ -46,16 +48,44 @@ public class ClientApp {
                 request.setGuideline(guideline);
 
                 Double totalPrice = 0.0;
-                for(MenuItem item : request.getMenuList()){
-                    totalPrice+=item.getPrice();
+                for (MenuItem item : request.getMenuList()) {
+                    totalPrice += item.getPrice();
                 }
 
-                //TODO gravar pedido num arquivo que possa ser lido nos relatorios (ITEM 4)
+                try {
+                    PrintWriter output = new PrintWriter(new FileWriter("historico.txt", true));
+                    String historyStr = "";
+                    for (MenuItem item : request.getMenuList()) {
+
+                        String itemDescription = "";
+                        if (item.getName().length() >= CHARACTERS_QTY) {
+                            itemDescription = item.getName().substring(0, CHARACTERS_QTY);
+                        } else {
+                            itemDescription = item.getName();
+                            while (itemDescription.length() <= CHARACTERS_QTY) {
+                                itemDescription += " ";
+                            }
+                        }
+
+                        historyStr += item.getName();
+                        historyStr += "\t";
+                        historyStr += item.getPrice();
+                        historyStr += "\n";
+                    }
+                    historyStr += "Observações: ";
+                    historyStr += request.getGuideline();
+                    historyStr += ";\n\n";
+
+                    output.print(historyStr);
+                    output.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 System.out.println("Totais do pedido:");
                 System.out.println("Total de itens: " + request.getMenuList().size());
                 System.out.println("Total a pagar: " + totalPrice);
-            } else{
+            } else {
                 System.out.println("Pedido finalizado sem itens.");
             }
         }
@@ -173,5 +203,18 @@ public class ClientApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String prepareDescription(String description) {
+        String plateDescription = "";
+        if (description.length() >= CHARACTERS_QTY) {
+            plateDescription = description.substring(0, CHARACTERS_QTY);
+        } else {
+            plateDescription = description;
+            while (plateDescription.length() <= CHARACTERS_QTY) {
+                plateDescription += " ";
+            }
+        }
+        return plateDescription;
     }
 }
