@@ -21,12 +21,10 @@ public class ManagerApp {
         System.out.println("2 - Relatórios");
         Integer module = scanModule.nextInt();
 
-        if (module.equals(1)) {
+        if (module.equals(1))
             register();
-
-        } else if (module.equals(2)) {
+        else if (module.equals(2))
             reports();
-        }
     }
 
     private static void register() {
@@ -37,13 +35,12 @@ public class ManagerApp {
         System.out.println("3 - Vinhos");
         Integer tipoCadastro = scanMenu.nextInt();
 
-        if (tipoCadastro.equals(1)) {
+        if (tipoCadastro.equals(1))
             plateRegister();
-        } else if (tipoCadastro.equals(2)) {
+        else if (tipoCadastro.equals(2))
             drinkRegister();
-        } else if (tipoCadastro.equals(3)) {
+        else if (tipoCadastro.equals(3))
             wineRegister();
-        }
     }
 
     private static void plateRegister() {
@@ -52,9 +49,11 @@ public class ManagerApp {
         String plateName = scanPlate.next();
         System.out.println("Digite o preço do novo prato:");
         Double platePrice = scanPlate.nextDouble();
+
         Plate plate = new Plate();
         plate.setName(plateName);
         plate.setPrice(platePrice);
+
         plate.savePlate(plate);
     }
 
@@ -64,9 +63,11 @@ public class ManagerApp {
         String drinkName = scanDrink.next();
         System.out.println("Digite o preço da nova bebida:");
         Double drinkPrice = scanDrink.nextDouble();
+
         Drink drink = new Drink();
         drink.setName(drinkName);
         drink.setPrice(drinkPrice);
+
         drink.saveDrink(drink);
     }
 
@@ -76,16 +77,17 @@ public class ManagerApp {
         String wineName = scanWine.next();
         System.out.println("Digite o preço do novo vinho:");
         Double winePrice = scanWine.nextDouble();
+
         Wine wine = new Wine();
         wine.setName(wineName);
         wine.setPrice(winePrice);
+
         wine.saveWine(wine);
     }
 
     private static void reports() {
         try {
-            Scanner scanner = new Scanner(System.in);
-            scanner = new Scanner(new FileReader("historico.txt")).useDelimiter(";");
+            Scanner scanner = new Scanner(new FileReader("historico.txt")).useDelimiter(";");
 
             while (scanner.hasNext()) {
                 Double requestTotalPrice = 0.0;

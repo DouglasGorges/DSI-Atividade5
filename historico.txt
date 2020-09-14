@@ -19,3 +19,6 @@ Observações: jj;
 Sprite	4.7
 Observações: nao;
 
+Almôndega caseira	9.7
+Observações: nao;
+

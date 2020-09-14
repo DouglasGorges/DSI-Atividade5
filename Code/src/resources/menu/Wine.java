@@ -12,19 +12,9 @@ public class Wine extends MenuItem {
     public void saveWine(Wine wine) {
         try {
             PrintWriter output = new PrintWriter(new FileWriter("vinhos-tabulados.txt", true));
-            //output.print(prepareToSave(wine));
             output.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String prepareToSave(Wine wine) {
-        String drinkPrice = Double.toString(wine.getPrice());
-        wineStr.append("\n");
-        wineStr.append(drinkPrice);
-        wineStr.append("\t");
-        wineStr.append(wine.getName());
-        return wineStr.toString();
     }
 }
