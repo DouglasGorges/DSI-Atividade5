@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ClientApp {
-    static Integer CHARACTERS_QTY = 40;
+
     static String HEAD = "Cód \t Descrição \t\t\t\t\t\t\t\t\t Preço";
     static Request request = new Request();
     private static Plate plate = new Plate();
@@ -54,19 +54,7 @@ public class ClientApp {
 
     private static void addPlate() {
         try {
-            HashMap<Integer, Plate> platesMap = new HashMap<Integer, Plate>();
-            Integer mapControl = 0;
-
-            for (Plate plate : plate.loadPlates()) {
-                platesMap.put(++mapControl, plate);
-                printItem(mapControl, plate);
-            }
-
-            Scanner scanCode = new Scanner(System.in);
-            System.out.println("Digite o código do prato desejado:");
-            Integer plateCode = scanCode.nextInt();
-
-            request.getMenuList().add(platesMap.get(plateCode));
+            request.getMenuList().add(plate.selectPlate());
 
             System.out.println("Prato adicionado ao pedido com sucesso!\n");
 
@@ -83,7 +71,7 @@ public class ClientApp {
 
             for (Drink drink : drink.loadDrinks()) {
                 drinksMap.put(++mapControl, drink);
-                printItem(mapControl, drink);
+                //printItem(mapControl, drink);
             }
 
             Scanner scanCode = new Scanner(System.in);
@@ -107,7 +95,7 @@ public class ClientApp {
 
             for (Wine wine : wine.loadWines()) {
                 winesMap.put(++mapControl, wine);
-                printItem(mapControl, wine);
+                //printItem(mapControl, wine);
             }
 
             Scanner scanCode = new Scanner(System.in);
@@ -124,21 +112,9 @@ public class ClientApp {
         }
     }
 
-    private static void printItem(Integer code, MenuItem item){
-        System.out.println(code + "\t\t" + prepareDescription(item.getName()) + "\t" + item.getPrice());
-    }
 
-    private static String prepareDescription(String description) {
-        String plateDescription = "";
-        if (description.length() >= CHARACTERS_QTY)
-            plateDescription = description.substring(0, CHARACTERS_QTY);
-        else {
-            plateDescription = description;
-            while (plateDescription.length() <= CHARACTERS_QTY)
-                plateDescription += " ";
-        }
-        return plateDescription;
-    }
+
+
 
     private static void closeRequest() {
         if (request.getMenuList().size() != 0) {

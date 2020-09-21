@@ -11,9 +11,27 @@ import java.util.Scanner;
 
 public class Plate extends MenuItem {
 
-    StringBuilder plateStr = new StringBuilder();
+    HashMap<Integer, Plate> platesMap = new HashMap<Integer, Plate>();
 
     public Plate() {
+    }
+
+    public Plate selectPlate() {
+        printPlates();
+
+        Scanner scanCode = new Scanner(System.in);
+        System.out.println("Digite o código do prato desejado:");
+        Integer plateCode = scanCode.nextInt();
+        return platesMap.get(plateCode);
+    }
+
+    public void printPlates() {
+        platesMap.clear();
+        Integer mapControl = 0;
+        for (Plate plate : loadPlates()) {
+            platesMap.put(++mapControl, plate);
+            printItem(mapControl, plate);
+        }
     }
 
     public List<Plate> loadPlates() {
@@ -36,23 +54,36 @@ public class Plate extends MenuItem {
         }
     }
 
-    public void savePlate(Plate plate) {
+    public void savePlate(Plate plate, boolean append) {
         try {
-            PrintWriter output = new PrintWriter(new FileWriter("pratos.csv", true));
-            output.print(prepareToSave(plate));
+            PrintWriter output = new PrintWriter(new FileWriter("pratos.csv", append));
+            output.print(prepareToSave(plate, append));
             output.close();
-            System.out.println("Prato salvo com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public String prepareToSave(Plate plate) {
+    public String prepareToSave(Plate plate, boolean append) {
+        StringBuilder plateStr = new StringBuilder();
+
+        if (!append)
+            plateStr.append("PRATO;PRECO");
+
         String platePrice = Double.toString(plate.getPrice());
         plateStr.append("\n");
         plateStr.append(plate.getName());
         plateStr.append(";");
         plateStr.append(platePrice);
         return plateStr.toString();
+    }
+
+    public void deletePlate() {
+        platesMap.remove(selectPlate());
+        boolean append = false;
+        for (Plate plate : platesMap.values()) {
+            savePlate(plate, append);
+            append = true;
+        }
     }
 }

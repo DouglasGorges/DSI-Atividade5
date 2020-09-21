@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class ManagerApp {
+    private static Plate plate = new Plate();
+    private static Drink drink = new Drink();
+    private static Wine wine = new Wine();
+
     public static void main(String[] args) {
         initMenu();
     }
@@ -31,7 +35,46 @@ public class ManagerApp {
             systemFinisher();
     }
 
-    private static void register() {
+    private static void register(){
+        Scanner scanFunction = new Scanner(System.in);
+
+        System.out.println("Selecione uma função:");
+        System.out.println("1 - Adicionar novo item ao Menu");
+        System.out.println("2 - Remover um item do Menu");
+        System.out.println("");
+        System.out.println("3 - Voltar ao menu principal");
+        Integer function = scanFunction.nextInt();
+
+        if (function.equals(1))
+            addRegister();
+        else if (function.equals(2))
+            removeRegister();
+        else
+            initMenu();
+    }
+
+    private static void removeRegister(){
+        Scanner scanItemType = new Scanner(System.in);
+
+        System.out.println("Selecione um tipo de item:");
+        System.out.println("1 - Pratos");
+        System.out.println("2 - Bebidas");
+        System.out.println("3 - Vinhos");
+        System.out.println("");
+        System.out.println("4 - Voltar ao menu principal");
+        Integer itemType = scanItemType.nextInt();
+
+        if (itemType.equals(1))
+            plate.deletePlate();
+//        else if (itemType.equals(2))
+//            drink.deleteDrink();
+//        else if (itemType.equals(3))
+//            wine.deleteWine();
+        else
+            initMenu();
+    }
+
+    private static void addRegister() {
         Scanner scanMenu = new Scanner(System.in);
         System.out.println("Selecione um tipo de cadastro");
         System.out.println("1 - Pratos");
@@ -63,7 +106,8 @@ public class ManagerApp {
         plate.setName(plateName);
         plate.setPrice(platePrice);
 
-        plate.savePlate(plate);
+        plate.savePlate(plate, true);
+        System.out.println("Operação realizada com sucesso!");
 
         System.out.println("\n\n");
         System.out.println("----------");
