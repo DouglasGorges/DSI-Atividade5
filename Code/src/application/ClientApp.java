@@ -10,12 +10,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class ClientApp {
     static Integer CHARACTERS_QTY = 40;
     static String HEAD = "Cód \t Descrição \t\t\t\t\t\t\t\t\t Preço";
     static Request request = new Request();
+    private static Plate plate = new Plate();
+    private static Drink drink = new Drink();
+    private static Wine wine = new Wine();
 
     public static void main(String[] args) {
         initMenu();
@@ -50,25 +54,19 @@ public class ClientApp {
 
     private static void addPlate() {
         try {
-            Scanner scanner = new Scanner(new FileReader("pratos.csv")).useDelimiter("\\n");
-            scanner.nextLine();
-            HashMap<Integer, String[]> platesMap = new HashMap<Integer, String[]>();
+            HashMap<Integer, Plate> platesMap = new HashMap<Integer, Plate>();
             Integer mapControl = 0;
 
-            while (scanner.hasNext()) {
-                String[] plate = scanner.next().split(";");
-                platesMap.put(mapControl++, plate);
-                System.out.println(mapControl + "\t\t" + prepareDescription(plate[0]) + "\t" + plate[1]);
+            for (Plate plate : plate.loadPlates()) {
+                platesMap.put(++mapControl, plate);
+                printItem(mapControl, plate);
             }
+
             Scanner scanCode = new Scanner(System.in);
             System.out.println("Digite o código do prato desejado:");
             Integer plateCode = scanCode.nextInt();
 
-            Plate plate = new Plate();
-            plate.setName(platesMap.get(plateCode - 1)[0]);
-            plate.setPrice(Double.parseDouble(platesMap.get(plateCode - 1)[1]));
-
-            request.getMenuList().add(plate);
+            request.getMenuList().add(platesMap.get(plateCode));
 
             System.out.println("Prato adicionado ao pedido com sucesso!\n");
 
@@ -80,27 +78,19 @@ public class ClientApp {
 
     private static void addDrink() {
         try {
-            Scanner scanner = new Scanner(new FileReader("bebidas-tabuladas.txt")).useDelimiter("\\n");
-            scanner.nextLine();
-            HashMap<Integer, String[]> drinksMap = new HashMap<Integer, String[]>();
+            HashMap<Integer, Drink> drinksMap = new HashMap<Integer, Drink>();
             Integer mapControl = 0;
 
-            while (scanner.hasNext()) {
-                String[] drink = scanner.next().split("\t");
-                drink[0] = drink[0].replace(",", ".");
-                drink[1] = drink[1].split("\r")[0];
-                drinksMap.put(mapControl++, drink);
-                System.out.println(mapControl + "\t\t" + prepareDescription(drink[1]) + "\t" + drink[0]);
+            for (Drink drink : drink.loadDrinks()) {
+                drinksMap.put(++mapControl, drink);
+                printItem(mapControl, drink);
             }
+
             Scanner scanCode = new Scanner(System.in);
             System.out.println("Digite o código da bebida desejada:");
             Integer drinkCode = scanCode.nextInt();
 
-            Drink drink = new Drink();
-            drink.setName(drinksMap.get(drinkCode - 1)[1]);
-            drink.setPrice(Double.parseDouble(drinksMap.get(drinkCode - 1)[0]));
-
-            request.getMenuList().add(drink);
+            request.getMenuList().add(drinksMap.get(drinkCode));
 
             System.out.println("Bebida adicionada ao pedido com sucesso!\n");
 
@@ -112,26 +102,19 @@ public class ClientApp {
 
     private static void addWine() {
         try {
-            Scanner scanner = new Scanner(new FileReader("vinhos-tabulados.txt")).useDelimiter("\\n");
-            scanner.nextLine();
-            HashMap<Integer, String[]> winesMap = new HashMap<Integer, String[]>();
+            HashMap<Integer, Wine> winesMap = new HashMap<Integer, Wine>();
             Integer mapControl = 0;
 
-            while (scanner.hasNext()) {
-                String[] wine = scanner.next().split("\t");
-                wine[1] = wine[1].split("\r")[0];
-                winesMap.put(mapControl++, wine);
-                System.out.println(mapControl + "\t\t" + prepareDescription(wine[1]) + "\t" + wine[0]);
+            for (Wine wine : wine.loadWines()) {
+                winesMap.put(++mapControl, wine);
+                printItem(mapControl, wine);
             }
+
             Scanner scanCode = new Scanner(System.in);
             System.out.println("Digite o código do vinho desejado:");
             Integer wineCode = scanCode.nextInt();
 
-            Wine wine = new Wine();
-            wine.setName(winesMap.get(wineCode - 1)[1]);
-            wine.setPrice(Double.parseDouble(winesMap.get(wineCode - 1)[0]));
-
-            request.getMenuList().add(wine);
+            request.getMenuList().add(winesMap.get(wineCode));
 
             System.out.println("Vinho adicionado ao pedido com sucesso!\n");
 
@@ -139,6 +122,10 @@ public class ClientApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void printItem(Integer code, MenuItem item){
+        System.out.println(code + "\t\t" + prepareDescription(item.getName()) + "\t" + item.getPrice());
     }
 
     private static String prepareDescription(String description) {
